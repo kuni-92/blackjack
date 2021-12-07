@@ -9,6 +9,12 @@ import (
 	"time"
 )
 
+const (
+	LOW = iota
+	EQUAL
+	HIGH
+)
+
 func main() {
 	welcomeMsg := `
 -------------------------------------
@@ -32,10 +38,7 @@ Let's get it on!!!
 		}
 		cards = append(cards, drawCard())
 		total = calcCards(cards)
-		fmt.Println("-------Your cards-------")
-		fmt.Println(fmtCard(cards))
-		fmt.Printf("Total: %d\n", total)
-		fmt.Println("------------------------")
+		fmt.Println(fmtStatus(cards, total))
 
 		if total == 21 {
 			fmt.Println("You Win !!!")
@@ -80,4 +83,13 @@ func calcCards(cards []int) int {
 		total += card
 	}
 	return total
+}
+
+func fmtStatus(cards []int, total int) string {
+	return fmt.Sprintf(`
+-------Your cards-------
+%s
+Total: %d
+------------------------
+`, fmtCard(cards), total)
 }
